@@ -33,13 +33,8 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500, // Internal Server Error
                body: JSON.stringify({
-    message: `
-        <p>We are currently experiencing some technical issues. Please use the link below to reach us:</p>
-        <p><a href="/contact" style="color: #007BFF; text-decoration: none; font-weight: bold;">Contact Us</a></p>
-        <p>We apologize for any inconvenience caused and appreciate your understanding.</p>
-    `,
-}),
-
+                    message: 'We are currently experiencing some technical difficulties. For immediate assistance, please call us at +91 9500801223'
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
