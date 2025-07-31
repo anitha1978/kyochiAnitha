@@ -5,10 +5,10 @@ exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405, // Method Not Allowed
-            body: JSON.stringify({ message: 'Only POST method is allowed' }),
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify({ message: 'Only POST method is allowed' }),
         };
     }
     
@@ -32,7 +32,14 @@ exports.handler = async (event, context) => {
         if (!sendinblueApiKey || !sendinblueEmail) {
             return {
                 statusCode: 500, // Internal Server Error
-                body: JSON.stringify({ message: 'SENDINBLUE_API_KEY or SENDINBLUE_Email not set in environment variables' }),
+               body: JSON.stringify({
+    message: `
+        <p>We are currently experiencing some technical issues. Please use the link below to reach us:</p>
+        <p><a href="/contact" style="color: #007BFF; text-decoration: none; font-weight: bold;">Contact Us</a></p>
+        <p>We apologize for any inconvenience caused and appreciate your understanding.</p>
+    `,
+}),
+
                 headers: {
                     'Content-Type': 'application/json',
                 },
