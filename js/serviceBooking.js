@@ -27,6 +27,19 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(formData),
         })
+        .then(async (response) => {
+            const contentType = response.headers.get("content-type");
+            if (!response.ok) {
+                const errorText = await response.text(); // Get raw error message
+                throw new Error(errorText);
+            }
+
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                throw new Error("Unexpected response format");
+            }
+        })
        
         .then(data => {
             // Show success message
