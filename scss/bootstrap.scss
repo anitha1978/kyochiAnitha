@@ -1,0 +1,119 @@
+/******* Customized Bootstrap ********/
+
+// Color Variables
+$primary: #e7ab1f;
+$secondary: #6a5e55;
+$light: #F9F8F6;
+$dark: #1C1A1D;
+$info: #5bc0de;
+$success: #5cb85c;
+$warning: #f0ad4e;
+$danger: #d9534f;
+
+// Font Variables
+$font-family-base: 'Merriweather', serif;
+$headings-font-family: 'PT Serif', serif;
+
+// Font Colors
+$body-color: #1C1A1D;
+$headings-color: $dark;
+
+// Font Weights
+$headings-font-weight: 400;
+$display-font-weight: 700;
+
+// Responsive Font Sizes
+$enable-responsive-font-sizes: true;
+
+// Borders
+$border-radius: 10px;
+$border-radius-sm: $border-radius;
+$border-radius-lg: $border-radius;
+
+// Links
+$link-decoration: none;
+
+// Enable Negative Margins
+$enable-negative-margins: true;
+
+// Custom Spacing (optional)
+$spacer: 1.5rem;
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Additional Custom Styles
+body {
+  font-family: $font-family-base;
+  color: $body-color;
+  background-color: $light;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  color: $headings-color;
+  font-weight: $headings-font-weight;
+}
+
+a {
+  color: $primary;
+  text-decoration: $link-decoration;
+
+  &:hover {
+    color: darken($primary, 10%);
+  }
+}
+
+// Buttons
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:hover {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary;
+  border-color: $secondary;
+
+  &:hover {
+    background-color: darken($secondary, 10%);
+    border-color: darken($secondary, 10%);
+  }
+}
+
+// Custom Card Styles
+.card {
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: $light;
+  border-bottom: 1px solid $dark;
+}
+
+// Form Styles
+.form-control {
+  border-radius: $border-radius;
+  border-color: $dark;
+}
+
+// Footer Styles
+.footer {
+  background-color: $dark;
+  color: $light;
+  padding: $spacer;
+  text-align: center;
+}
+
+.footer a {
+  color: $light;
+
+  &:hover {
+    color: lighten($light, 10%);
+  }
+}
