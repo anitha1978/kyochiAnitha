@@ -6,29 +6,39 @@ exports.handler = async (event, context) => {
         return {
             statusCode: 405, // Method Not Allowed
             body: JSON.stringify({ message: 'Only POST method is allowed' }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         };
     }
+    
     try {
-        const { firstName, email, number, service, personsCount, appointmentDate, comments} = JSON.parse(event.body);
+        const { firstName, email, number, service, personsCount, appointmentDate, comments } = JSON.parse(event.body);
 
-        // // Check if the required fields are present
-        // if (!firstName || !email || !number || !service || !personsCount || !appointmentDate || !comments) {
-        //     return {
-        //         statusCode: 400, // Bad Request
-        //         body: JSON.stringify({ message: 'Missing required fields' }),
-        //     };
-        // }
+        // Validate if required fields are present
+        if (!firstName || !email || !number || !service || !personsCount || !appointmentDate || !comments) {
+            return {
+                statusCode: 400, // Bad Request
+                body: JSON.stringify({ message: 'Missing required fields' }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+        }
 
-        
         const sendinblueApiKey = process.env.SENDINBLUE_API_KEY;
         const sendinblueEmail = process.env.SENDINBLUE_Email;
 
-        if (!sendinblueApiKey) {
+        if (!sendinblueApiKey || !sendinblueEmail) {
             return {
                 statusCode: 500, // Internal Server Error
-                body: JSON.stringify({ message: 'SENDINBLUE_API_KEY not set in environment variables' }),
+                body: JSON.stringify({ message: 'SENDINBLUE_API_KEY or SENDINBLUE_Email not set in environment variables' }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             };
         }
+
         const emailData = {
             sender: { email: sendinblueEmail },
             to: [{ email: sendinblueEmail }],
@@ -45,7 +55,7 @@ exports.handler = async (event, context) => {
                         <p><strong>Date:</strong> ${appointmentDate}</p>
                         <p><strong>Comments:</strong> ${comments}</p>
                     </body>
-                </html>`       
+                </html>`
         };
 
         const response = await axios.post('https://api.sendinblue.com/v3/smtp/email', emailData, {
@@ -55,14 +65,25 @@ exports.handler = async (event, context) => {
             },
         });
 
+        // console.log('Sendinblue Response:', response.data);  // Log full response for debugging
+
+        // Ensure proper JSON response format
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Email sent successfully!' }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         };
     } catch (error) {
+        console.error('Error sending email:', error);
+
         return {
             statusCode: 500, // Internal Server Error
             body: JSON.stringify({ message: 'Failed to send email', error: error.message }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         };
     }
 };
