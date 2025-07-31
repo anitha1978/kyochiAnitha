@@ -15,15 +15,15 @@ exports.handler = async (event, context) => {
     try {
         const { firstName, email, number, service, personsCount, appointmentDate, comments } = JSON.parse(event.body);
 
-        if (!firstName || !email || !service || !personsCount || !appointmentDate || !comments) {
-            return {
-                statusCode: 400,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: 'Missing required fields' }),
-            };
-        }
+        // if (!firstName || !email || !number || !service || !personsCount || !appointmentDate || !comments) {
+        //     return {
+        //         statusCode: 400,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({ message: 'Missing required fields' }),
+        //     };
+        // }
 
         const sendinblueApiKey = process.env.SENDINBLUE_API_KEY;
         const recipientEmail = process.env.SENDINBLUE_EMAIL;

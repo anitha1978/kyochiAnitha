@@ -8,17 +8,16 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({ message: 'Only POST method is allowed' }),
         };
     }
-
     try {
         const { firstName, email, number, service, personsCount, appointmentDate, comments} = JSON.parse(event.body);
 
-        // Check if the required fields are present
-        if (!firstName || !email || !number || !service || !personsCount || !appointmentDate || !comments) {
-            return {
-                statusCode: 400, // Bad Request
-                body: JSON.stringify({ message: 'Missing required fields' }),
-            };
-        }
+        // // Check if the required fields are present
+        // if (!firstName || !email || !number || !service || !personsCount || !appointmentDate || !comments) {
+        //     return {
+        //         statusCode: 400, // Bad Request
+        //         body: JSON.stringify({ message: 'Missing required fields' }),
+        //     };
+        // }
 
         
         const sendinblueApiKey = process.env.SENDINBLUE_API_KEY;
