@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('submitBtn2').addEventListener('click', function (event) {
         event.preventDefault();
 
+        // Collect form data
         const firstName = document.getElementById('firstNameBook').value;
         const email = document.getElementById('emailBook').value;
         const number = document.getElementById('numberBook').value;
@@ -10,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const appointmentDate = document.getElementById('appointmentDateBook').value;
         const comments = document.getElementById('commentsBook').value;
 
+        // Check if form data is valid (just a basic check, adjust as needed)
+        // if (!firstName || !email || !appointmentDate) {
+        //     alert('Please fill in all the required fields!');
+        //     return;
+        // }
+
+        // Log form data for debugging
         const formData = {
             firstName,
             email,
@@ -20,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
             comments
         };
 
+        console.log('Form Data Sent:', formData);
+
+        // Send data to the Netlify Function
         fetch('/.netlify/functions/service-form', {
             method: 'POST',
             headers: {
@@ -29,8 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(async (response) => {
             const contentType = response.headers.get("content-type");
+            
             if (!response.ok) {
-                const errorText = await response.text(); // Get raw error message
+                const errorText = await response.text();
                 throw new Error(errorText);
             }
 
@@ -40,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error("Unexpected response format");
             }
         })
-       
         .then(data => {
             // Show success message
             document.getElementById('submitBtn2').style.display = 'none';
@@ -56,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             errorMsg.className = 'text-danger text-center mt-3';
             errorMsg.innerText = 'Error sending email: ' + error.message;
             document.getElementById('submitBtn2').insertAdjacentElement('afterend', errorMsg);
-            console.error(error);
+            console.error(error); // Log to console for debugging
         });
     });
 });
