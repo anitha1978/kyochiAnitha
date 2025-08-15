@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify(formData),
         })
         .then(async (response) => {
+
+               // ✅ Fire the Google Ads conversion here
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16832908891/aJ_ICMmuxLwaENucx9o-',
+            'value': 10.0,
+            'currency': 'INR'
+        });
+
+            
             const contentType = response.headers.get("content-type");
 
             // Check if the response is okay and contains JSON
