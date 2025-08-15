@@ -41,6 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .then(data => {
+
+               // ✅ Fire the Google Ads conversion here
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16832908891/aJ_ICMmuxLwaENucx9o-',
+            'value': 10.0,
+            'currency': 'INR'
+        });
+            
             // Show success message
             document.getElementById('submitBtn').style.display = 'none';
             const successMsg = document.createElement('p');
